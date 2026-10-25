@@ -18,13 +18,20 @@
 
 ## 📌 Overview
 
-Defensive Packet Capture
+
+OSniffer is a defensive network monitor that captures and analyses traffic metadata without ever extracting credentials or payload content. It decodes DNS, HTTP, HTTPS/TLS, SSH, FTP, SMTP, DHCP, ARP, ICMP, MDNS, NBNS and SSDP, detects port/host scans, and stores sessions in SQLite with HTML reports and encrypted exports. It is intended for authorized security analysis and defensive telemetry only.
 
 ---
 
 ## ✨ Features
 
-- Defensive packet capture and network telemetry monitor (DNS/HTTP/TLS/SSH/ARP)
+
+- Protocol-aware metadata decoding for DNS, HTTP, TLS, SSH, FTP, SMTP, DHCP, ARP, ICMP, MDNS, NBNS and SSDP
+- Scan-detection engine with configurable window and threshold, plus top-talker statistics
+- BPF filtering and host/net/port selectors, with duration/count limits for bounded captures
+- SQLite session storage, HTML/JSON/CSV reports and optional password-encrypted exports
+- Lab-mode, output masking, daemon mode and an embedded web view (--web HOST:PORT)
+- Defensive by design: never extracts credentials, passwords or payload content
 
 ---
 
@@ -37,8 +44,13 @@ Defensive Packet Capture
 
 ## 🚀 Usage
 
+
 ```bash
-./OSniffer
+./OSniffer -i eth0 --duration 60 --html report.html
+./OSniffer -i wlan0 --dns-only --json dns.json
+./OSniffer -i eth0 --bpf "tcp port 443" --mask-output --encrypt
+./OSniffer --self-test
+./OSniffer --help
 ```
 
 ---
